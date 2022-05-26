@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+// mendefinisikan fungsi faktorial
+// x untuk inputan user pada main menu berupa int n dan r 
+int faktorial (int x){
+	int i=1, j=1;
+	while(i<=x){
+		j=j*i;
+		i++;
+	}
+return(j);
+}
+
+int main(){
+	int menu;
+	char loop;
+	do {
+	cout<<"------------------------------------------"<<endl;
+	cout<<"WELCOME TO PERMUTASI DAN KOMBINASI PROGRAM"<<endl;
+	cout<<"------------------------------------------"<<endl;
+	cout<<"1. Program Menghitung Permutasi"<<endl;
+	cout<<"2. Program Menghitung Kombinasi"<<endl;
+	cout<<"Pilihan anda :";
+	cin>>menu;
+	cout<<endl;
+	
+	//nilai n untuk nilai n (banyaknya objek keseluruhan)
+	//nilai r untuk nilai r (banyaknya objek yang diamati)
+	//nilai a untuk rumus permutasi yaitu (n-r)!
+	int n,r,a,permutasi,kombinasi;
+	cout<<"Masukan Nilai N: ";
+	cin>>n;
+	cout<<"Masukan Nilai R: ";
+	cin>>r;
+	cout<<endl;
+	a=n-r;
+	
+	//percabangan switch untuk menentukan menu perhitungan yang akan dipilih user
+	switch(menu){
+		case 1:
+			permutasi=faktorial(n)/faktorial(a);
+			cout<<"Hasil Permutasi dari "<<n<<" dan "<<r<<" Adalah "<<permutasi<<endl;
+			break; 
+		case 2:
+			kombinasi=faktorial(n)/(faktorial(a)*faktorial(r));
+			cout<<"Hasil Kombinasi dari "<<n<<" dan "<<r<<" Adalah "<<kombinasi<<endl;
+			break;		
+		}
+	
+	//perulangan do while, jika user ingin menghitung ulang. 	
+	cout<<"Ingin menghitung lagi? (y/t) : ";
+	cin>>loop;
+	} while (loop=='y'); //ketika loop diisi karakter 'y' maka program akan mengeksekusi perulangan DO WHILE 
+	
+	//namun ketika loop diisi karakter lain yang !=t maka program akan berhenti 
+ 	cout << "Terimakasih...";
+ 	cout << endl;
+ 	return 0;
+}
