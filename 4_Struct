@@ -1,0 +1,142 @@
+#include <iostream>
+using namespace std;
+
+//struct data toko laptop 
+struct data_toko{
+	string model ;
+	int harga ;
+};
+
+//array untuk data toko 
+data_toko data[100];
+
+//deklarasi Variable Global
+int i, batas , menu , nomor , ubah , newprice, del; // i untuk iterasi, batas sebagai batasan perulangan, nomor sebagai variable penomoran
+                                                    // ubah untuk variable parameter yang ingin diubah, newprice sbg varuable baru harga
+                                                    // del untuk variable hapus
+
+string newmodel;  // newmodel untuk variable model baru pada prosedur change data
+
+//prototype prosedur 
+void input_data();
+void change_data();
+void delete_data();
+void print_data();
+
+int main (){
+	while(true){
+    cout<<endl;
+	cout<<"============================================"<<endl;
+    cout<<"       DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+    cout<<"[1] Tambah Data Laptop "<<endl;
+    cout<<"[2] Ubah Data Laptop"<<endl;
+    cout<<"[3] Hapus Data Laptop"<<endl;
+    cout<<"[4] Tampil Data Laptop"<<endl;
+    cout<<"[5] Exit Menu "<<endl;
+    cout<<"Masukkan Pilihan anda : ";
+    cin>>menu; 
+    cout<<endl;
+	
+    system("cls");
+
+	if (menu==1){
+		input_data();
+	}
+	
+	else if (menu==2){
+        print_data();
+		change_data();
+        print_data();
+
+	}
+	else if(menu==3){
+        print_data();
+        delete_data();
+
+	}
+
+	else if (menu==4){
+		print_data();
+	}
+	
+	else{
+		exit(0);
+	}
+	
+}	
+}
+
+
+void input_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    INPUT DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+	cout<<"Berapa Data yang ingin dimasukan : ";
+	cin>>batas ; // batas sebagai batasan perulangan
+	cout<<endl;
+	for(i=0;i<batas;i++){
+		nomor = i + 1 ; // nomor sebagai variable penomoran
+		cout<<"----------"<<nomor<<"-----------"<<endl;
+	   cout<<"Model - Spesifikasi : "; fflush(stdin);
+	   getline(cin, data[i].model );
+	   cout<<"Harga :";
+	   cin>>data[i].harga;
+	   cout<<endl; 
+   }
+
+}
+
+void change_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    UBAH DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+	cout<<"Data Berapa yang ingin diubah : ";
+	cin>>ubah; 
+	nomor = ubah-1 ; // nomor sebagai variable penomoran
+    cout<<"Model - Spesifikasi : "; fflush(stdin);
+    getline(cin, newmodel);
+    cout<<"Harga : ";
+    cin>>newprice;
+	data[nomor].model = newmodel;
+	data[nomor].harga = newprice;
+    
+	
+}
+void print_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+   for(int i=0;i<batas;){
+   nomor = i + 1;
+    cout<<"----------"<<nomor<<"-----------"<<endl;
+   cout<<"Model - Spesifikasi : "<<data[i].model<<endl;
+   cout<<"Harga : "<<data[i].harga<<endl;   
+   i++;
+   }
+    cout<<endl;
+
+}
+
+void delete_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    DELETE DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+    cout<<"Data Berapa yang ingin dihapus : ";
+    cin>>del; //variable del adalah variable yang digunakan sbg parameter untuk nilai array yang ingin dihapus
+    del = del-1; 
+    i=del;
+    for (i;i<=batas;i++)
+    {data[i]=data[i+1];}
+    
+    for(int i=0;i<batas-1;){
+   nomor = i + 1;
+   cout<< nomor << endl; 
+   cout<<"Model - Spesifikasi : "<<data[i].model<<endl;
+   cout<<"Harga : "<<data[i].harga<<endl;   
+   i++;
+   }
+    cout<<endl;
+
+}
+
