@@ -1,0 +1,108 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+// Mendeklarasikan Variable Global
+int i, n, k, menu, batas, change, del;
+string newbuku;
+string buku[100]; 
+
+// Prototype Prosedur 
+void tambahdata();
+void ubahdata();
+void hapus_data();
+void cetak();
+
+
+int main(){
+    // Menggunakan Perulangan While untuk mengulang menu pada program pendataan perpus
+    while(true){
+    cout<<endl;
+	cout<<"========================================="<<endl;
+    cout<<"       PROGRAM PENDATAAN BUKU PERPUS      "<<endl;
+    cout<<"========================================="<<endl;
+    cout<<"[1] Tambah Data Buku "<<endl;
+    cout<<"[2] Ubah Data Buku"<<endl;
+    cout<<"[3] Hapus Data Buku"<<endl;
+    cout<<"[4] Tampil Data Buku "<<endl;
+    cout<<"[5] Exit Menu "<<endl;
+    cout<<"Masukkan Pilihan anda : ";
+    cin>>menu; 
+	if (menu==1){
+        tambahdata();
+        main();
+    }
+    else if (menu==2){
+        cetak();
+        ubahdata(); 
+        cetak();
+
+    }
+    else if (menu==3){
+        hapus_data(); 
+        cetak();
+
+    }
+
+    else if (menu==4){
+        cetak();
+    }
+    else if (menu=5){
+        exit(0);
+    }
+    
+}
+			
+}
+
+
+void tambahdata(){
+    system("cls");
+    cout<<"---------- INPUT DATA BUKU PERPUS -------------"<<endl;
+    cout<<"Jumlah Buku yang akan di Input : ";
+    cin>>n; //n adalah banyaknya dari buku yang akan di data
+    for (i=1 ;i<=n;i++){ // i untuk iterasi dengan nilai 1 agar saat penginputan data, sistem akan memulai menghitung dari 1 bukan 0.
+        cout<<"Masukkan Data Ke-"<<i<<" : ";
+        cin>>buku[i];
+    }  
+    system("cls");
+
+}
+
+void cetak(){
+    cout<<endl;
+    system("cls");
+    cout<<"---------- MELIHAT DATA BUKU PERPUS -------------"<<endl;
+    //n adalah banyaknya dari buku yang di data
+    // i untuk iterasi dengan nilai 1 agar saat penginputan data, sistem akan memulai menghitung dari 1 bukan 0.
+    for (i=1; i<=n;){ 
+        cout<<i<<". "<<buku[i];
+        i++;
+        cout<<endl;
+    }
+    cout<<endl;
+
+}
+
+void ubahdata(){
+    system("cls");
+    cout<<"---------- MENGUBAH DATA BUKU PERPUS -------------"<<endl;
+    cout<<"Masukkan Buku keberapa yang ingin diubah : ";
+    cin>>change; //variable change adalah variabel yang digunakan sbg parameter untuk nilai dari array yang ingin diubah.
+    cout<<"Masukkan Nama Buku Baru : ";
+    cin>>newbuku; //variable newbuku adalah variable yang diisi dengan nama buku yang baru
+    buku[change]=newbuku;
+}
+
+void hapus_data(){
+    system("cls");
+    cout<<"---------- DELETE DATA BUKU PERPUS -------------"<<endl;
+    cout<<"Masukkan Buku keberapa yang ingin dihapus : ";
+    cin>>del; //variable del adalah variable yang digunakan sbg parameter untuk nilai aray yang ingin dihapus
+    i=del;
+    for (i;i<=n;i++)
+    { buku[i]=buku[i+1];}
+
+
+}
+
