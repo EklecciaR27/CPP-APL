@@ -1,0 +1,399 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+//struct data toko laptop 
+struct data_toko{
+	string model ;
+	int harga ;
+	float ram; 
+};
+
+//array untuk data toko 
+data_toko data[100];
+
+//deklarasi Variable Global
+int i, batas , menu , nomor , ubah , newprice, del, newram; // i untuk iterasi, batas sebagai batasan perulangan, nomor sebagai variable penomoran
+                                                    // ubah untuk variable parameter yang ingin diubah, newprice sbg varuable baru harga
+                                                    // del untuk variable hapus
+int i_posisi, i_start, i_end, proses , low , high; // deklarasi variable global untuk searching
+string newmodel;  // newmodel untuk variable model baru pada prosedur change data
+
+//prototype prosedur 
+void input_data();
+void change_data();
+void delete_data();
+void print_data();
+void klik_program();
+void bubble_sort_model(data_toko arr[],int batas);
+void bubble_sort(data_toko arr[],int batas);
+void insertionSort_ram(data_toko arr[], int batas);
+void insertionSort(data_toko arr[], int batas);
+void shellSort_model(data_toko arr[], int batas);
+void shellSort(data_toko arr[], int batas);
+int binarySearch(data_toko arr[], int low, int high);
+int binarySearch2(data_toko arr[], int low, int high);
+
+
+
+
+int main (){
+	while(true){
+    cout<<endl;
+	cout<<"============================================"<<endl;
+    cout<<"       DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+    cout<<"[1] Tambah Data Laptop "<<endl;
+    cout<<"[2] Ubah Data Laptop"<<endl;
+    cout<<"[3] Hapus Data Laptop"<<endl;
+    cout<<"[4] Tampil Data Laptop (Sorting)"<<endl;
+    cout<<"[5] SEARCHING"<<endl;
+    cout<<"[6] Exit Menu "<<endl;
+    cout<<"Masukkan Pilihan anda : ";
+    cin>>menu; 
+    cout<<endl;
+	
+    system("cls");
+
+	if (menu==1){
+		input_data();
+		klik_program();
+	}
+	
+	else if (menu==2){
+        print_data();
+		change_data();
+        print_data();
+        klik_program();
+
+	}
+	else if(menu==3){
+        print_data();
+        delete_data();
+        klik_program();
+
+	}
+
+	else if (menu==4){
+		
+		cout<<"====================================="<<endl;
+		cout <<"           Sorting					"<<endl;
+		cout<<"====================================="<<endl;
+		// BUBBLE SORT 
+			bubble_sort(data,batas);
+			cout << " Sort berdasarkan Harga" << endl;
+			print_data();
+			
+			bubble_sort_model(data,batas);
+			cout << " Sort berdasarkan Model" << endl;
+			print_data();
+			cout<<endl;
+			
+		// Insertion SORT
+			insertionSort(data, batas);
+			cout << " Sort berdasarkan Harga" << endl;
+			print_data();
+	
+			insertionSort_ram(data,batas);
+			cout << " Sort berdasarkan RAM" << endl;
+			print_data();
+			cout<<endl;
+			
+		// Shell Sort
+		shellSort(data,batas);
+			cout << " Sort berdasarkan Harga" << endl;
+			print_data();
+			
+			shellSort_model(data,batas);
+			cout << " Sort berdasarkan Model" << endl;
+			print_data();
+			cout<<endl;
+		
+		klik_program();
+		
+		}
+	
+	else if (menu==5){
+		int pilsearch;
+		cout<<"=================="<<endl;
+		cout<<"1. Search Harga"<<endl;
+		cout<<"2. Search Model"<<endl;
+		cout<<"=================="<<endl;
+		cout<<"Menu Search : ";
+		cin>>pilsearch; 
+		
+		switch(pilsearch){
+			case 1 : 
+			// program melakukan sorting terlebih dahulu, baru searching
+			bubble_sort(data, batas);
+			binarySearch2(data,low,high);	
+			break ;
+			klik_program();
+			
+			case 2 :
+			// program melakukan sorting terlebih dahulu, baru searching
+			bubble_sort_model(data,batas);
+			binarySearch(data, low , high );
+			break ;
+			klik_program();
+			
+			default:
+            cout << "Pilihan tidak ada" << endl;
+			klik_program();			
+	}
+}
+
+	else{
+		exit(0);
+	}
+	
+}
+}
+
+void input_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    INPUT DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+	cout<<"Berapa Data yang ingin dimasukan : ";
+	cin>>batas ; // batas sebagai batasan perulangan
+	cout<<endl;
+	for(i=0;i<batas;i++){
+		nomor = i + 1 ; // nomor sebagai variable penomoran
+		cout<<"----------"<<nomor<<"-----------"<<endl;
+	   cout<<"Model - Spesifikasi : "; fflush(stdin);
+	   getline(cin, data[i].model );
+	   cout<<"RAM : ";
+	   cin>>data[i].ram;
+	   cout<<"Harga :";
+	   cin>>data[i].harga;
+	   cout<<endl; 
+   }
+   system("cls");
+
+}
+
+void klik_program(){
+	cout<<"Klik apa saja untuk kembali ke menu"<<endl;
+	getch();
+	system("cls");
+	
+}
+
+int binarySearch(data_toko arr[], int low, int high){
+	string model_cari;
+	cout<<"Masukkan Model yang Ingin Anda Cari: "; 
+	fflush(stdin); 
+	//penggunaan getline untuk input string agar Input bisa di spasi
+	getline(cin, model_cari);
+    while (low <= high)
+    {
+    	// mencari/set nilai mid menggunakan formulasi berikut
+    	int mid = low + (high - low) / 2;
+    	// ketika arr mid == data yang dicari maka, data ditemukan 
+        if (arr[mid].model == model_cari)
+        {
+        	cout<<"============================================"<<endl;
+			cout<<"                DATA DITEMUKAN               "<<endl;
+			cout<<"============================================="<<endl;
+			cout<<"Model : "<<data[mid].model<<endl;
+			cout<<"RAM  : "<<data[mid].ram<<endl;
+			cout<<"Harga : "<<data[mid].harga<<endl;
+			cout<<"============================================="<<endl;
+			break;
+
+		}
+		// ketika arr mid lebih kecil dari data yang dicari maka nilai low akan di set ulang. 
+		else if (arr[mid].model < model_cari)
+			low = mid + 1;
+		
+		// ketika arr mid lebih besar dari data yang dicari maka high akan di set ulang. 
+		else
+			high = mid - 1;
+	}
+	return -1;
+}
+
+
+int binarySearch2(data_toko arr[], int low, int high){
+	int hrg;
+	cout<<"Masukkan Harga yang Ingin Anda Cari: "; 
+	cin >> hrg;
+    while (low <= high)
+    {
+    	// mencari/set nilai mid menggunakan formulasi berikut
+    	int mid = low + (high - low) / 2;
+    	// ketika arr mid == data yang dicari maka, data ditemukan 
+        if (arr[mid].harga == hrg)
+        {
+        	cout<<"============================================"<<endl;
+			cout<<"                DATA DITEMUKAN               "<<endl;
+			cout<<"============================================="<<endl;
+			cout<<"Model : "<<data[mid].model<<endl;
+			cout<<"RAM  : "<<data[mid].ram<<endl;
+			cout<<"Harga : "<<data[mid].harga<<endl;
+			cout<<"============================================="<<endl;
+			break;
+			return mid;
+		}
+		// ketika arr mid lebih kecil dari data yang dicari maka nilai low akan di set ulang.
+		if (arr[mid].harga < hrg)
+			low = mid + 1;
+		
+		// ketika arr mid lebih besar dari data yang dicari maka nilai high akan di set ulang.
+		else
+			high = mid - 1;
+	}
+	return -1;
+}
+
+
+
+
+void shellSort_model(data_toko arr[], int batas) {
+  // Proses perhitungan Shell Sort. 
+  for (int interval = batas / 2; interval > 0; interval /= 2) {
+    for (int i = interval; i < batas; i += 1) {
+    	// temp sebagai tempat penyimpanan sementara.
+      data_toko temp = arr[i];
+      int j;
+      // disini array satu dengan yang lain akan dibanginkan secara ascending. Dan menggunakan kata
+      // compare untuk membandingkan string. 
+      for (j = i; j >= interval && arr[j - interval].model.compare(temp.model) > 0; j -= interval) {
+        arr[j] = arr[j - interval];
+      }
+      arr[j] = temp;
+    }
+  }
+}
+
+void shellSort(data_toko arr[], int batas) {
+  // Proses perhitungan Shell Sort.
+  for (int interval = batas / 2; interval > 0; interval /= 2) {
+    for (int i = interval; i < batas; i += 1) {
+    	// temp sebagai tempat penyimpanan sementara.
+      data_toko temp = arr[i];
+      int j;
+      // disini array satu dengan yang lain akan dibandingkan secara ascending. 
+      for (j = i; j >= interval && arr[j - interval].harga > (temp.harga) ; j -= interval) {
+        arr[j] = arr[j - interval];
+      }
+      arr[j] = temp;
+    }
+  }
+}
+
+
+
+void bubble_sort(data_toko arr[],int batas){
+	int i,j;
+	for (i = 0; i < batas - 1; i++){
+		for (j = 0; j < batas -i - 1; j++){
+			// disini array satu dengan yang lain akan dibandingkan setelah itu
+			if (arr[j].harga > arr[j+1].harga){
+				// jika array j lebih besar daru array j+1 maka array j akan ditukar dengan array j+1
+				swap(arr[j],arr[j+1]);
+			}
+		}
+	}
+}
+
+void bubble_sort_model(data_toko arr[],int batas){
+	int i,j;
+	for (i = 0; i < batas-1; i++){
+		for (j = 0; j < batas-i-1; j++){
+			// membandingkan array j dan array j+1 untuk model.
+			// digunakan kata compare untuk membandingkan string. 
+			if (arr[j].model.compare(arr[j+1].model) > 0){
+				swap(arr[j],arr[j+1]);
+			}
+		}
+	}
+}
+
+void insertionSort(data_toko arr[], int batas)
+{
+	int i, key, j;
+	for (i = 1; i < batas; i++) {
+		//set arr i untuk menjadi key untuk menjalankan tugas sorting. 
+		key = arr[i].harga;
+		j = i-1;
+	// ketika array j>=0 dan array j lebih besar dari array i. maka array j+1 = array j. dan array j+1 akan menjadi key diperulangan selanjutnya
+		while (j >= 0 && arr[j].harga > key) 
+		{
+		arr[j+1] = arr[j];
+		j = j-1;
+		}
+	arr[j+1].harga = key;
+	}
+}
+
+void insertionSort_ram(data_toko arr[], int batas)
+{
+	int i, key, j;
+	for (i = 1; i < batas; i++) {
+		//set arr i untuk menjadi key untuk menjalankan tugas sorting. 
+		key = arr[i].ram;
+		j = i-1;
+		// ketika array j>=0 dan array j lebih besar dari array i. maka array j+1 = array j. dan array j+1 akan menjadi key diperulangan selanjutnya
+		while (j >= 0 && arr[j].ram > key) 
+		{
+		arr[j+1] = arr[j];
+		j = j-1;
+		}
+	arr[j+1].ram = key;
+	}
+}
+
+void change_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    UBAH DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+	cout<<"Data Berapa yang ingin diubah : ";
+	cin>>ubah; 
+	nomor = ubah-1 ; // nomor sebagai variable penomoran
+    cout<<"Model - Spesifikasi : "; fflush(stdin);
+    getline(cin, newmodel);
+    cout<<"Harga : ";
+    cin>>newprice;
+	data[nomor].model = newmodel;
+	data[nomor].ram = newram;
+	data[nomor].harga = newprice;
+	
+    
+	
+}
+void print_data(){
+   for(int i=0;i<batas;){
+   nomor = i + 1;
+    cout<<"----------"<<nomor<<"-----------"<<endl;
+   cout<<"Model - Spesifikasi : "<<data[i].model<<endl;
+   cout<<"Harga : "<<data[i].harga<<endl;  
+	cout<<"RAM : "<<data[i].ram<<endl;  
+   i++;
+   }
+    cout<<endl;
+
+}
+
+void delete_data(){
+    cout<<"============================================"<<endl;
+    cout<<"    DELETE DATA TOKO LAPTOP MANTAPPU JIWA    "<<endl;
+    cout<<"============================================"<<endl;
+    cout<<"Data Berapa yang ingin dihapus : ";
+    cin>>del; //variable del adalah variable yang digunakan sbg parameter untuk nilai array yang ingin dihapus
+    del = del-1; 
+    i=del;
+    for (i;i<=batas;i++)
+    {data[i]=data[i+1];}
+    
+    for(int i=0;i<batas-1;){
+   nomor = i + 1;
+   cout<< nomor << endl; 
+   cout<<"Model - Spesifikasi : "<<data[i].model<<endl;
+   cout<<"Harga : "<<data[i].harga<<endl;   
+   cout<<"RAM : "<<data[i].ram<<endl; 
+   i++;
+   }
+    cout<<endl;}
+
+
