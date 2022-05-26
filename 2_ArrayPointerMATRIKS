@@ -1,0 +1,102 @@
+#include <iostream>
+#include <conio.h>
+#include <iomanip>
+using namespace std;
+
+int main(){
+
+    int baris = 3;
+    int kolom = 3;
+
+    int j,b,e,r,hasil;
+    int matrix1[baris][kolom];
+    int matrix2 [baris][kolom];
+    int matrixhasil [baris][kolom];
+
+    cout<<"--------------------------------------"<<endl;
+    cout<<"        PERKALIAN MATRIX              "<<endl;
+    cout<<"--------------------------------------"<<endl;
+
+// [Matrix 1] j untuk  baris, b untuk variable kolom SEHINGGA Matriks 1 = [j][b]
+	cout<<"INPUT DATA MATRIX PERTAMA"<<endl;
+    for(int j=0; j<baris; j++){
+        for(int b=0; b<kolom;b++){
+            cout<<"Matrix Pertama baris ke-"<<j+1<<" kolom ke-"<<b+1<<" : ";
+            cin>>matrix1[j][b];  
+        }
+    } 
+
+    cout<<endl;
+    cout<<"Matrix 1 Telah Selesai di Data - Silakan tekan enter"<<endl;
+    getch(); //Getch digunakan untuk melanjutkan program ke input data matrix 2. Getch yg digunakan dengan menekan enter 
+    system ("cls"); // System ("cls") digunakan untuk clear screen pada compiler agar data tidak menumpuk pada compiler. 
+    
+
+	
+//[Matrix 2] e untuk variable baris, r untuk variable kolom SEHINGGA Matriks 2 = [e][r]
+	cout<<"INPUT DATA MATRIX KEDUA"<<endl;
+    for(int e=0; e<baris; e++){
+        for (int r=0;r<kolom; r++){
+            cout<<"Matrix Kedua baris ke-"<<e+1<<" kolom ke-"<<r+1<<" : ";
+            cin>>matrix2[e][r];    
+            }
+    }
+
+    cout<<endl;
+    cout<<"Matrix 2 Telah Selesai di Data - Silakan tekan enter"<<endl;
+    getch(); //Getch digunakan untuk melanjutkan program ke menampilkan matrix. Getch yg digunakan dengan menekan enter 
+    system ("cls"); // System ("cls") digunakan untuk clear screen pada compiler agar data tidak menumpuk pada compiler. 
+
+// menampilkan Matrix 1  
+    cout<<"----------------------"<<endl;
+    cout<<"      MATRIX 1" <<endl;
+    cout<<"----------------------"<<endl;
+    for(int j=0; j<baris; j++){
+        cout<<"[\t";
+        for (int b=0; b<kolom ;b++)
+        {
+            int *mptr1 = &matrix1[j][b]; //membuat pointer mptr1 untuk menyimpan nilai dari matrix 1
+            cout<<*mptr1; //menampilkan matrix 1 menggunakan pointer
+            cout<<"\t";
+        }
+        cout<<"]\t"<<endl;
+    }
+
+
+    cout<<"----------------------"<<endl;
+    cout<<"      MATRIX 2" <<endl;
+    cout<<"----------------------"<<endl;
+    for(int e=0;e<baris;e++){
+        cout<<"[\t";
+        for (int r=0;r<kolom;r++)
+        {
+            int *mptr2 = &matrix2[e][r]; //membuat pointer mptr2 untuk menyimpan nilai dari matrix 2
+            cout<<*mptr2<<"\t"; //menampilkan matrix 2 menggunakan pointer
+        }
+        cout<<"]\t"<<endl;
+    }
+
+
+    cout<<"---------------------------------"<<endl;
+    cout<<"     HASIL PERKALIAN MATRIX " <<endl;
+    cout<<"---------------------------------"<<endl;
+    // blok program ini untuk menghitung hasil perkalian
+    for (baris=0;baris<3;baris++){ 
+        for (kolom=0;kolom<3;kolom++){
+             matrixhasil[baris][kolom]=0;
+            for (hasil=0;hasil< 3;hasil++){
+                matrixhasil[baris][kolom] += matrix1[baris][kolom]*matrix2[baris][kolom];
+            }
+        }
+    }
+    // blok program ini untuk menampilkan hasil perkalian matriks 1 dan 2 
+   for (baris=0;baris<3;baris++){
+        cout<<"[\t";
+        for (kolom=0;kolom<3;kolom++){
+            cout<<matrixhasil[baris][kolom]<<"\t";
+        }
+        cout<<"]"<<endl;
+    }
+
+    return 0;
+}
